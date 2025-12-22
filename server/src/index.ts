@@ -11,6 +11,7 @@ import connectDatabase from "./config/database.config";
 import passport from "passport";
 
 import "./config/password.config";
+import router from "./routes";
 
 const app = express();
 
@@ -23,8 +24,7 @@ app.use(
     credentials: true,
   })
 );
-
-app.use(errorHandler);
+app.use(passport.initialize());
 
 app.get(
   "/health",
@@ -36,7 +36,9 @@ app.get(
   })
 );
 
-app.use(passport.initialize());
+app.use("/api", router);
+
+app.use(errorHandler);
 
 app.listen(Env.PORT, async () => {
   await connectDatabase();
