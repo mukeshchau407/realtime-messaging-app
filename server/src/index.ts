@@ -8,6 +8,9 @@ import { asyncHandler } from "./middlewares/asyncHandler.middleware";
 import { HTTPSTATUS } from "./config/http.config";
 import { errorHandler } from "./middlewares/errorHandler.middleware";
 import connectDatabase from "./config/database.config";
+import passport from "passport";
+
+import "./config/password.config";
 
 const app = express();
 
@@ -32,6 +35,8 @@ app.get(
     });
   })
 );
+
+app.use(passport.initialize());
 
 app.listen(Env.PORT, async () => {
   await connectDatabase();
