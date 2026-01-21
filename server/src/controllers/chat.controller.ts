@@ -10,7 +10,7 @@ import {
 
 export const createChatsController = asyncHandler(
   async (req: Request, res: Response) => {
-    const userId = req.body?._id;
+    const userId = req.user?._id;
 
     const body = createChatSchema.parse(req.body);
 
@@ -20,12 +20,12 @@ export const createChatsController = asyncHandler(
       message: "Chat created successfully",
       chat,
     });
-  }
+  },
 );
 
 export const getUserChatsController = asyncHandler(
   async (req: Request, res: Response) => {
-    const userId = req.body?._id;
+    const userId = req.user?._id;
 
     const chats = await getUserChatsService(userId);
 
@@ -33,20 +33,20 @@ export const getUserChatsController = asyncHandler(
       message: "Chats fetched successfully",
       chats,
     });
-  }
+  },
 );
 
 export const getSingleChatsController = asyncHandler(
   async (req: Request, res: Response) => {
-    const userId = req.body?._id;
+    const userId = req.user?._id;
     const { id } = chatIdSchema.parse(req.params);
 
     const { chat, messages } = await getSingleChatsService(userId, id);
 
     return res.status(HTTPSTATUS.OK).json({
-      message: "Chats fetched successfully",
+      message: "User chat fetched successfully",
       chat,
       messages,
     });
-  }
+  },
 );

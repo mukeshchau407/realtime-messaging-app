@@ -59,7 +59,7 @@ export const getUserChatsService = async (userId: string) => {
   })
     .populate("participants", "name avatar")
     .populate({
-      path: "latestMessage",
+      path: "lastMessage",
       populate: { path: "sender", select: "name avatar" },
     })
     .sort({ updatedAt: -1 });
